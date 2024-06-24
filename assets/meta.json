@@ -1,5 +1,6 @@
 {
 	"project-name": "OpenAigan Engine",
-	"icon": "icon.png",
-	"author": "Jahangir (Janik) Abdullayev"
+	"icon": "icon.ico",
+	"author": "Jahangir (Janik) Abdullayev",
+	"version": "beta 0.0.1"
 }
