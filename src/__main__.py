@@ -14,7 +14,7 @@ def main():
 
     # temp for gui dev
     # pass metadata as optional
-    myDev = DevmodeGUI.DevmodeGUI(metadata=metaData, srcPath=srcDirectory)
+    myDev = DevmodeGUI.DevmodeGUI(metaData, srcDirectory)
 
 
 if __name__ == "__main__":
