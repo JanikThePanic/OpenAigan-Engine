@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 
-def load(tab: ttk.Frame):
+def load(tab: ttk.Frame, defaultPadding=(10, 10)):
     pass
 
 
