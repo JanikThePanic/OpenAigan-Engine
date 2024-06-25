@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import sv_ttk
+import json
 
 from devmode.tabs import SettingsTab
 from devmode.tabs import ControlTab
@@ -94,8 +95,18 @@ class DevmodeGUI:
         # Add tab frames to notebook
         notebook.add(settingsTab, text="⚙ Settings")
         notebook.add(controlTab, text="🎮 Control")
-
-        notebook.add(robotTab, text="{bot type}")
+        # Add bot tab
+        notebook.add(
+            robotTab,
+            text=str(
+                "🔧 "
+                + str(
+                    json.load(
+                        open(os.path.join(self.srcPath, "../user/", "SETTINGS.json"))
+                    )["root_settings"]["selected_robot"]
+                )
+            ),
+        )
 
 
 if __name__ == "__main__":
