@@ -12,9 +12,9 @@ class DevmodeGUI:
     # The DevmodeGUI class requires the folders assets, src, and user to be in the same dirctory
     # metadata is a passed loaded json
     # srcPath is a os path to the src directory
-    def __init__(self, metadata, srcPath):
-        # Save metadata and path to src folder
-        self.metadata = metadata
+    def __init__(self, metaData, srcPath):
+        # Save metaData and path to src folder
+        self.metaData = metaData
         self.srcPath = srcPath
 
         # Create root Tk window
@@ -41,10 +41,10 @@ class DevmodeGUI:
 
         # Set window icon
         self.root.iconbitmap(
-            os.path.join(self.srcPath, "../assets/", self.metadata["icon"])
+            os.path.join(self.srcPath, "../assets/", self.metaData["icon"])
         )
         # Set window title
-        self.root.title(self.metadata["project-name"])
+        self.root.title(self.metaData["project-name"])
 
         # Fill left half the screen
         screenWidth = self.root.winfo_screenwidth()
@@ -61,7 +61,7 @@ class DevmodeGUI:
         constantBar = ttk.Frame(self.root, padding=10)
         constantBar.pack(fill="x", side="bottom", anchor="s")
         # Display program version
-        versionLabel = ttk.Label(constantBar, text="v" + str(metadata["version"]))
+        versionLabel = ttk.Label(constantBar, text=str(metaData["version"]))
         versionLabel.pack(side="left", anchor="w")
         # Simulation only toggle
         simulationOnlyToggle = ttk.Checkbutton(
@@ -77,15 +77,19 @@ class DevmodeGUI:
 
     # Function will load necessary tabs to passed ttk notebook
     def loadTabs(self, notebook: ttk.Notebook):
+        # Reused paddings
+        tabPadding = (15, 10)
+        defaultPadding = (20, 10)
+
         # Load constant tabs
-        settingsTab = ttk.Frame(notebook)
-        controlTab = ttk.Frame(notebook)
+        settingsTab = ttk.Frame(notebook, padding=tabPadding)
+        controlTab = ttk.Frame(notebook, padding=tabPadding)
         # Load bot dependant tabs
-        robotTab = ttk.Frame(notebook)
+        robotTab = ttk.Frame(notebook, padding=tabPadding)
 
         # Populate tabs
-        SettingsTab.load(settingsTab)
-        ControlTab.load(controlTab)
+        SettingsTab.load(settingsTab, defaultPadding)
+        ControlTab.load(controlTab, defaultPadding)
 
         # Add tab frames to notebook
         notebook.add(settingsTab, text="⚙ Settings")
