@@ -2,5 +2,7 @@
 	"root_settings": {
 		"selected_robot": "Hexapod"
 	},
-	"devmode_settings": {}
+	"devmode_settings": {
+		"theme": "dark"
+	}
 }

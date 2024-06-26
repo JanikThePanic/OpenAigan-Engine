@@ -1,28 +1,108 @@
+# GUI dependencies
 import tkinter as tk
 from tkinter import ttk
-import os
 import sv_ttk
+
+# Misc dependencies
 import json
 
-from devmode.tabs import SettingsTab
-from devmode.tabs import ControlTab
+# ___ ___
+import devmode.tabs.ControlTab
+import devmode.tabs.SettingsTab
 
 
+# The DevmodeGUI gets passed a referance to the main engine class
+# Which kinda makes a loop of pointers...
 class DevmodeGUI:
-    # Devmode GUI initialization
-    # The DevmodeGUI class requires the folders assets, src, and user to be in the same dirctory
-    # metadata is a passed loaded json
-    # srcPath is a os path to the src directory
-    def __init__(self, metaData, srcPath):
-        # Save metaData and path to src folder
-        self.metaData = metaData
-        self.srcPath = srcPath
+    # Reused paddings
+    tabPadding = (15, 10)
+    defaultPadding = (20, 10)
+
+    def __init__(self, engine):
+        # Save the engine the gui is running in
+        self.engine = engine
 
         # Create root Tk window
         self.root = tk.Tk()
 
+        # Set window icon
+        self.root.iconbitmap(
+            self.engine.assetsPath + "/" + self.engine.metadata["icon"]
+        )
+        # Set window title
+        self.root.title(self.engine.metadata["project-name"])
+
+        # Fill left half the screen
+        screenWidth = self.root.winfo_screenwidth()
+        screenHeight = self.root.winfo_screenheight()
+        self.root.geometry(
+            str(int(screenWidth / 2)) + "x" + str(screenHeight - 75) + "+0+0"
+        )
+
         # Set theme
-        sv_ttk.set_theme("dark")
+        self.updateToTheme()
+
+        # Notebook fill window for tabs
+        self.notebook = ttk.Notebook(self.root, padding=10)
+        self.notebook.pack(expand=True, fill="both")
+        # Let crtl+tab and crtl+shift+tab traverse tabs
+        self.notebook.enable_traversal()
+
+        # Constant bar on bottom of screen
+        constantBar = ttk.Frame(self.root, padding=10)
+        constantBar.pack(fill="x", side="bottom", anchor="s")
+        # Display program version
+        versionLabel = ttk.Label(constantBar, text=str(self.engine.metadata["version"]))
+        versionLabel.pack(side="left", anchor="w")
+        # Simulation only toggle
+        simulationOnlyToggle = ttk.Checkbutton(
+            constantBar, style="Switch.TCheckbutton", text="Simulation Only"
+        )
+        simulationOnlyToggle.pack(side="right", anchor="e")
+
+        # (re)Load all tabs into notebook
+        self.reloadTabs()
+
+        # Run window
+        self.root.mainloop()
+
+    # Function to clear notebook of all tabs and reload new tabs
+    def reloadTabs(self):
+        for windowName in self.notebook.tabs():
+            self.notebook.forget(windowName)
+
+        # Now load tabs
+
+        # Constant pages
+        self.notebook.add(
+            devmode.tabs.SettingsTab.load(self, self.engine), text="⚙ Settings"
+        )
+        self.notebook.add(
+            devmode.tabs.ControlTab.load(self, self.engine), text="🎮 Control"
+        )
+        # Add bot tab
+        self.notebook.add(
+            ttk.Frame(self.notebook, padding=self.tabPadding),
+            text=str(
+                "🔧 "
+                + str(
+                    json.load(open(self.engine.userPath + "/SETTINGS.json"))[
+                        "root_settings"
+                    ]["selected_robot"]
+                )
+            ),
+        )
+
+    # Sets GUI theme to sv_ttk theme listed in SETTINGS.json
+    # As well hides the notebook tab focus border
+    # For whatever reason, the focus snipped has to run every time the theme changes
+    def updateToTheme(self):
+        # Set theme
+        sv_ttk.set_theme(
+            json.load(open(self.engine.userPath + "/SETTINGS.json"))[
+                "devmode_settings"
+            ]["theme"]
+        )
         self.root.option_add("*font", "-size 12")
 
         # Following is from https://www.tutorialspoint.com/how-to-remove-ttk-notebook-tab-dashed-line-tkinter
@@ -39,74 +119,6 @@ class DevmodeGUI:
         # fmt: on
         # Use the Defined Style to remove the dashed line from Tabs
         notebookStyle.configure("Tab")
-
-        # Set window icon
-        self.root.iconbitmap(
-            os.path.join(self.srcPath, "../assets/", self.metaData["icon"])
-        )
-        # Set window title
-        self.root.title(self.metaData["project-name"])
-
-        # Fill left half the screen
-        screenWidth = self.root.winfo_screenwidth()
-        screenHeight = self.root.winfo_screenheight()
-        self.root.geometry(
-            str(int(screenWidth / 2)) + "x" + str(screenHeight - 75) + "+0+0"
-        )
-
-        # Notebook fill window for tabs
-        notebook = ttk.Notebook(self.root, padding=10)
-        notebook.pack(expand=True, fill="both")
-
-        # Constant bar on bottom of screen
-        constantBar = ttk.Frame(self.root, padding=10)
-        constantBar.pack(fill="x", side="bottom", anchor="s")
-        # Display program version
-        versionLabel = ttk.Label(constantBar, text=str(metaData["version"]))
-        versionLabel.pack(side="left", anchor="w")
-        # Simulation only toggle
-        simulationOnlyToggle = ttk.Checkbutton(
-            constantBar, style="Switch.TCheckbutton", text="Simulation Only"
-        )
-        simulationOnlyToggle.pack(side="right", anchor="e")
-
-        # Load tabs into notebook
-        self.loadTabs(notebook)
-
-        # Run window
-        self.root.mainloop()
-
-    # Function will load necessary tabs to passed ttk notebook
-    def loadTabs(self, notebook: ttk.Notebook):
-        # Reused paddings
-        tabPadding = (15, 10)
-        defaultPadding = (20, 10)
-
-        # Load constant tabs
-        settingsTab = ttk.Frame(notebook, padding=tabPadding)
-        controlTab = ttk.Frame(notebook, padding=tabPadding)
-        # Load bot dependant tabs
-        robotTab = ttk.Frame(notebook, padding=tabPadding)
-
-        # Populate tabs
-        SettingsTab.load(settingsTab, defaultPadding)
-        ControlTab.load(controlTab, defaultPadding)
-
-        # Add tab frames to notebook
-        notebook.add(settingsTab, text="⚙ Settings")
-        notebook.add(controlTab, text="🎮 Control")
-        # Add bot tab
-        notebook.add(
-            robotTab,
-            text=str(
-                "🔧 "
-                + str(
-                    json.load(
-                        open(os.path.join(self.srcPath, "../user/", "SETTINGS.json"))
-                    )["root_settings"]["selected_robot"]
-                )
-            ),
-        )
 
 
 if __name__ == "__main__":
