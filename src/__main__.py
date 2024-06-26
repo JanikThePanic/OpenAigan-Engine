@@ -30,13 +30,15 @@ class OpenAiganEngine:
         self.devGUI = devmode.DevmodeGUI.DevmodeGUI(self)
 
     # Comment <<<<<<<<<<<<<<<<<<<<<<<<
-    def changeTheme(self, theme):
-        print("Updated theme on json to " + theme)
-        self.updateToTheme()
-
-    # Comment <<<<<<<<<<<<<<<<<<<<<<<<
     def updateToTheme(self):
-        print("Updated theme on sim")
+        print(
+            "Updated theme on sim to "
+            + str(
+                json.load(open(self.userPath + "/SETTINGS.json"))["devmode_settings"][
+                    "theme"
+                ]
+            )
+        )
         pass
 
 
