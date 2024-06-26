@@ -5,6 +5,7 @@ import devmode.DevmodeGUI
 
 # Project requires the folders assets, src, and user to be in the same dirctory
 class OpenAiganEngine:
+    # List of all supported bot types to be referenced
     supportedBotTypes = ["Hexapod", "gabeNewell"]
 
     def __init__(self):
