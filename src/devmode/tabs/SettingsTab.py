@@ -52,7 +52,7 @@ def load(devGUI, engine):
     )
     selectBotLabel.pack(side="left", anchor="w")
     selectBotList = ttk.Combobox(
-        selectBotFrame, state="readonly", values=["Hexapod", "dummy16"]
+        selectBotFrame, state="readonly", values=engine.supportedBotTypes
     )
     selectBotList.set(
         json.load(open(engine.userPath + "/SETTINGS.json"))["root_settings"][
