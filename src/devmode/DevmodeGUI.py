@@ -7,6 +7,7 @@ import sv_ttk
 import json
 
 # Tab-specfic imports
+import devmode.tabs.BotTab
 import devmode.tabs.ControlTab
 import devmode.tabs.SettingsTab
 
@@ -82,7 +83,7 @@ class DevmodeGUI:
         )
         # Add bot tab
         self.notebook.add(
-            ttk.Frame(self.notebook, padding=self.tabPadding),
+            devmode.tabs.BotTab.load(self, self.engine),
             text=str(
                 "🔧 "
                 + str(
