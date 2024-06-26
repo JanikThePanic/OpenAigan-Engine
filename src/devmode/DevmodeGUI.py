@@ -6,7 +6,7 @@ import sv_ttk
 # Misc dependencies
 import json
 
-# ___ ___
+# Tab-specfic imports
 import devmode.tabs.ControlTab
 import devmode.tabs.SettingsTab
 
@@ -36,7 +36,7 @@ class DevmodeGUI:
         screenWidth = self.root.winfo_screenwidth()
         screenHeight = self.root.winfo_screenheight()
         self.root.geometry(
-            str(int(screenWidth / 2)) + "x" + str(screenHeight - 75) + "+0+0"
+            str(int(screenWidth / 3)) + "x" + str(screenHeight - 75) + "+0+0"
         )
 
         # Set theme
