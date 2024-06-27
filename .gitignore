@@ -167,3 +167,6 @@ cython_debug/
 # Keep defualts (since build/ is in the list)
 !assets/
 !assets/*/
+!assets/*/*/
+!assets/*/*/*/
+!assets/*/*/*/*/
