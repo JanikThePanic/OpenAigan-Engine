@@ -123,4 +123,4 @@ class DevmodeGUI:
 
 
 if __name__ == "__main__":
-    DevmodeGUI()
+    pass
