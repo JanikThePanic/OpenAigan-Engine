@@ -69,6 +69,15 @@ class DevmodeGUI:
 
     # Function to clear notebook of all tabs and reload new tabs
     def reloadTabs(self):
+        # Note which tab selected at the moment
+        # Has to start at index 0 and in try since on load there are no tabs
+        selected = 0
+        try:
+            selected = self.notebook.index(self.notebook.select())
+        except:
+            pass
+
+        # Clear all tabs
         for windowName in self.notebook.tabs():
             self.notebook.forget(windowName)
 
@@ -93,6 +102,9 @@ class DevmodeGUI:
                 )
             ),
         )
+
+        # Go back to which tab was selected before reloading
+        self.notebook.select(self.notebook.tabs()[selected])
 
     # Sets GUI theme to sv_ttk theme listed in SETTINGS.json
     # As well hides the notebook tab focus border
