@@ -50,19 +50,10 @@ class OpenAiganEngine:
         )
         pass
 
-    #
-    # >>>> Comment for janik later <<<<
-    # When given the chance make it so the program on launch checks the user dir exists and if not, make it.
-    # Then check all the SETTINGS, CONTROLS, possible bot params jsons exist, if not make them.
-    # so like run through supportedBotTypes and make sure for each bot type
-    # CONTROLS_{supportedBotTypes} and BUILD_{supportedBotTypes} exist.
-    # https://stackoverflow.com/questions/8933237/how-do-i-check-if-a-directory-exists-in-python
-    # https://stackoverflow.com/questions/1274405/how-to-create-new-folder
-    #
-
-    # first check user dir exists
-    # check if settings.json exists
-    # all indv stuff per bot
+    # Checks to make sure all user/setting files and dirs exist
+    # First check user and /build and /controls dirs exist
+    # Check if settings.json exists
+    # All indv stuff per bot
     def preCheckAllUserFiles(self):
         # Default path
         defaultPath = self.assetsPath + "/defaults"
@@ -87,16 +78,19 @@ class OpenAiganEngine:
             # Copy one over from defaults if not
             copyfile(defaultPath + "/SETTINGS.json", self.userPath + "/SETTINGS.json")
 
-        #
-        # still to do: check every robot controls + build file
-        #
-        #
-
+        # Check for every robot controls + build file
         for bot in OpenAiganEngine.supportedBotTypes:
-            try:
-                pass
-            except:
-                pass
+            # Check {bot}_controls.json exists
+            checking = f"/controls/{bot}_controls.json"
+            if not os.path.exists(self.userPath + checking):
+                # Copy one over from defaults if not
+                copyfile(defaultPath + checking, self.userPath + checking)
+        for bot in OpenAiganEngine.supportedBotTypes:
+            # Check {bot}_build.json exists
+            checking = f"/build/{bot}_build.json"
+            if not os.path.exists(self.userPath + checking):
+                # Copy one over from defaults if not
+                copyfile(defaultPath + checking, self.userPath + checking)
 
 
 if __name__ == "__main__":
