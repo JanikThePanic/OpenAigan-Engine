@@ -1,8 +1,15 @@
 {
-	"root_settings": {
-		"selected_robot": "gabeNewell"
+	"meta": {
+		"profile_name": "gabeNewell",
+		"profile_version": "1.0",
+		"note": "a message about the build profile"
 	},
-	"devmode_settings": {
-		"theme": "light"
-	}
+	"build_parameters": {
+		"param": {
+			"title": "param's display name/title",
+			"type": "param type",
+			"value": ["saved value"]
+		}
+	},
+	"plugin_parameters": {}
 }
