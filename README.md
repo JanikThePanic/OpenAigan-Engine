@@ -7,7 +7,6 @@ go to vscode keyboard shortcuts json and just add this
 runs the above with `shift+enter` and makes dev life easy
 
 ```json
-// Place your key bindings in this file to override the defaults
 [
  {
   "key": "shift+enter",
