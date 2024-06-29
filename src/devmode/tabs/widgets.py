@@ -93,10 +93,7 @@ class FloatEntry(ttk.Frame):
         super().__init__(parent, padding=gui.DevmodeGUI.defaultPadding)
 
         # Make label
-        self.label = ttk.Label(self, text=title)
-        self.label.pack(
-            side="left", anchor="w", padx=(0, gui.DevmodeGUI.defaultPadding[0])
-        )
+        makeEntryLabel(self, title)
 
         # Make entry
         self.entry = Lotfi(self)
@@ -121,6 +118,15 @@ class Lotfi(ttk.Entry):
         else:
             # there's non-digit characters in the input; reject this
             self.set(self.old_value)
+
+
+# Makes all the labels for the entries
+# Keeps the formatting in one place
+# Really Entry should be a class and all the different formats of it inherit from it...
+# But oops
+def makeEntryLabel(entry: ttk.Frame, title):
+    label = ttk.Label(entry, text=title)
+    label.pack(side="left", anchor="w", padx=(0, gui.DevmodeGUI.defaultPadding[0]))
 
 
 if __name__ == "__main__":
