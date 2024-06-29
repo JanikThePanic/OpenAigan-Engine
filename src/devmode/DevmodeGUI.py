@@ -16,7 +16,7 @@ import devmode.tabs.SettingsTab
 # Which kinda makes a loop of pointers...
 class DevmodeGUI:
     # Reused paddings
-    tabPadding = (15, 10)
+    tabPadding = (20, 10)
     defaultPadding = (20, 10)
 
     def __init__(self, engine):
@@ -44,7 +44,7 @@ class DevmodeGUI:
         self.updateToTheme()
 
         # Notebook fill window for tabs
-        self.notebook = ttk.Notebook(self.root, padding=10)
+        self.notebook = ttk.Notebook(self.root)
         self.notebook.pack(expand=True, fill="both")
         # Let crtl+tab and crtl+shift+tab traverse tabs
         self.notebook.enable_traversal()
