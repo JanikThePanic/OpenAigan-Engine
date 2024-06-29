@@ -15,8 +15,10 @@ class FloatEntry(ttk.Frame):
         super().__init__(parent, padding=gui.DevmodeGUI.defaultPadding)
 
         # Make label
-        self.label = ttk.Label(self, text=title, padding=gui.DevmodeGUI.defaultPadding)
-        self.label.pack(side="left", anchor="w")
+        self.label = ttk.Label(self, text=title)
+        self.label.pack(
+            side="left", anchor="w", padx=(0, gui.DevmodeGUI.defaultPadding[0])
+        )
 
         # Make entry
         self.entry = Lotfi(self)

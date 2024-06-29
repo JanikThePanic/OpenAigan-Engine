@@ -18,10 +18,8 @@ def load(devGUI, engine):
     # Theme setting
     themeSettingFrame = ttk.Frame(guiSettingsFrame, padding=devGUI.defaultPadding)
     themeSettingFrame.pack(fill="x")
-    themeSettingLabel = ttk.Label(
-        themeSettingFrame, text="Theme", padding=devGUI.defaultPadding
-    )
-    themeSettingLabel.pack(side="left", anchor="w")
+    themeSettingLabel = ttk.Label(themeSettingFrame, text="Theme")
+    themeSettingLabel.pack(side="left", anchor="w", padx=(0, devGUI.defaultPadding[0]))
     themeSettingList = ttk.Combobox(
         themeSettingFrame, state="readonly", values=["dark", "light"]
     )
@@ -44,13 +42,11 @@ def load(devGUI, engine):
     )
     devSettingsFrame.pack(fill="x", pady=devGUI.tabPadding[1])
 
-    # change bot setting
+    # Change bot setting
     selectBotFrame = ttk.Frame(devSettingsFrame, padding=devGUI.defaultPadding)
     selectBotFrame.pack(fill="x")
-    selectBotLabel = ttk.Label(
-        selectBotFrame, text="Robot Type", padding=devGUI.defaultPadding
-    )
-    selectBotLabel.pack(side="left", anchor="w")
+    selectBotLabel = ttk.Label(selectBotFrame, text="Robot Type")
+    selectBotLabel.pack(side="left", anchor="w", padx=(0, devGUI.defaultPadding[0]))
     selectBotList = ttk.Combobox(
         selectBotFrame, state="readonly", values=engine.supportedBotTypes
     )
@@ -66,30 +62,6 @@ def load(devGUI, engine):
         ),
     )
     selectBotList.pack(fill="x", anchor="e")
-
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-
-    #
-    # Old test buttons
-    # i forget some silly things
-    #
-
-    # label = ttk.Label(guiSettingsFrame, text="f3efe", padding=devGUI.defaultPadding)
-    # label.pack()
-
-    # button = ttk.Button(guiSettingsFrame, text="Click me!", command=devGUI.reloadTabs)
-    # button.pack(pady=20)
-
-    # button1 = ttk.Button(
-    #     guiSettingsFrame, text="Click me!", command=devGUI.updateToTheme
-    # )
-    # button1.pack()
 
     # Return settings frame tab
     return tab
