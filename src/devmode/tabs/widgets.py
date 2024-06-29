@@ -7,7 +7,7 @@ import devmode.DevmodeGUI as gui
 # Collections of common widgets and frames and sorts for the GUI
 
 
-# Frame with test and a entry for floats
+# Frame with text and a entry for floats
 class FloatEntry(ttk.Frame):
     # Needs devGUI, parent, label title, initial value
     def __init__(self, parent, title, value):
