@@ -49,8 +49,9 @@ def load(devGUI, engine):
 
         # Float entry
         if param["type"] == "float":
-            paramFrame = FloatEntry(botParams, param["title"], param["value"])
-            paramFrame.pack(fill="x", pady=devGUI.tabPadding[1])
+            FloatEntry(botParams, param["title"], param["value"]).pack(
+                fill="x", pady=devGUI.tabPadding[1]
+            )
 
     return tab
 
