@@ -7,7 +7,8 @@ from devmode.tabs.widgets import *
 
 # Return loaded settings tab frame
 def load(devGUI, engine):
-    tab = ttk.Frame(devGUI.notebook, padding=devGUI.tabPadding)
+    tab = VerticalScrolledFrame(devGUI.notebook)
+    tab.interior.configure(padding=devGUI.defaultPadding)
 
     # Currently selected bot
     selectedBot = json.load(open(engine.userPath + "/SETTINGS.json"))["root_settings"][
@@ -22,7 +23,7 @@ def load(devGUI, engine):
     params = buildJson["build_parameters"]
 
     # Information up top
-    metaFrame = ttk.Frame(tab, padding=devGUI.defaultPadding)
+    metaFrame = ttk.Frame(tab.interior, padding=devGUI.defaultPadding)
     metaFrame.pack(fill="x", pady=devGUI.tabPadding[1])
 
     # Note about profile
@@ -35,7 +36,9 @@ def load(devGUI, engine):
 
     # Robot parameters section
     botParams = ttk.LabelFrame(
-        tab, text=meta["profile_name"] + " Parameters", padding=devGUI.defaultPadding
+        tab.interior,
+        text=meta["profile_name"] + " Parameters",
+        padding=devGUI.defaultPadding,
     )
     botParams.pack(fill="x", pady=devGUI.tabPadding[1])
 
