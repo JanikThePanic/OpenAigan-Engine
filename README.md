@@ -8,12 +8,14 @@ runs the above with `shift+enter` and makes dev life easy
 
 ```json
 [
- {
-  "key": "shift+enter",
-  "command": "workbench.action.terminal.sendSequence",
-  "args": {
-   "text": "rm -rf user/\u000Dpipenv run python src/__main__.pyw\u000D"
-  }
- }
+	{
+		"key": "shift+enter",
+		"command": "workbench.action.terminal.sendSequence",
+		"args": {
+			"text": "rm -rf user/\u000Dpipenv run python src/__main__.pyw\u000D"
+		}
+	}
 ]
 ```
+
+i say this again, alot of this is spgti code and a wip
