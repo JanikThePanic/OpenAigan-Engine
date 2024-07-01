@@ -1,35 +1,35 @@
 {
-	"meta": {
-		"profile_name": "Hexapod",
-		"profile_version": "1.0",
-		"note": "Dimensions are unitless"
-	},
-	"build_parameters": {
-		"coxa": {
-			"title": "Coxa dimension",
-			"type": "float",
-			"value": 100.0
-		},
-		"femur": {
-			"title": "Femur dimension",
-			"type": "float",
-			"value": 100.0
-		},
-		"front": {
-			"title": "Front dimension",
-			"type": "float",
-			"value": 100.0
-		},
-		"middle": {
-			"title": "Middle dimension",
-			"type": "float",
-			"value": 100.0
-		},
-		"side": {
-			"title": "Side dimension",
-			"type": "float",
-			"value": 100.0
-		}
-	},
-	"plugin_parameters": {}
+    "meta": {
+        "profile_name": "Hexapod",
+        "profile_version": "1.0",
+        "note": "Dimensions are unitless"
+    },
+    "build_parameters": {
+        "coxa": {
+            "title": "Coxa dimension",
+            "type": "float",
+            "value": 100.0
+        },
+        "femur": {
+            "title": "Femur dimension",
+            "type": "float",
+            "value": 100.0
+        },
+        "front": {
+            "title": "Front dimension",
+            "type": "float",
+            "value": 100.0
+        },
+        "middle": {
+            "title": "Middle dimension",
+            "type": "float",
+            "value": 100.0
+        },
+        "side": {
+            "title": "Side dimension",
+            "type": "float",
+            "value": 100.0
+        }
+    },
+    "plugin_parameters": {}
 }
