@@ -15,7 +15,8 @@ def load(devGUI, engine):
         "selected_robot"
     ]
     # Path to the build json
-    buildJson = json.load(open(engine.userPath + f"/build/{selectedBot}_build.json"))
+    buildPath = engine.userPath + f"/build/{selectedBot}_build.json"
+    buildJson = json.load(open(buildPath))
 
     # Load meta data
     meta = buildJson["meta"]
@@ -31,7 +32,11 @@ def load(devGUI, engine):
     note.pack(side="left", anchor="w")
 
     # temp save button to test things
-    saveButton = ttk.Button(metaFrame, text="Save", command=lambda: devGUI.reloadTabs())
+    saveButton = ttk.Button(
+        metaFrame,
+        text="Save",
+        command=lambda: saveBuild(buildPath=buildPath, botParams=botParams),
+    )
     saveButton.pack(side="right", anchor="e")
 
     # Robot parameters section
@@ -54,6 +59,36 @@ def load(devGUI, engine):
             )
 
     return tab
+
+
+# Save all parameters to the json
+def saveBuild(buildPath, botParams: ttk.LabelFrame):
+    # buildJson is a path to the build JSON
+    # botParams refers to the build_parameters displayed in the labelFrame in the JSON
+    # When I get my act tgt, this tab will be a class extenting a tab calss
+
+    buildJson = json.load(open(buildPath))
+
+    # Save all build params
+    indexer = 0
+    buildParamNames = list(buildJson["build_parameters"].keys())
+    for i in botParams.winfo_children():
+        # Make sure save values as right type
+        valueType = buildJson["build_parameters"][buildParamNames[indexer]]["type"]
+        if valueType == "float":
+            value = float(i.get())
+        # elif
+        ##### other value types
+        else:
+            value = i.get()
+
+        buildJson["build_parameters"][buildParamNames[indexer]]["value"] = value
+        indexer += 1
+
+    with open(buildPath, "w") as f:
+        json.dump(buildJson, f, indent=4)
+
+    # Not my proudest code here...
 
 
 if __name__ == "__main__":

@@ -100,6 +100,10 @@ class FloatEntry(ttk.Frame):
         self.entry.set(value)
         self.entry.pack(fill="x", anchor="e")
 
+    # To get value of entry
+    def get(self):
+        return self.entry.get()
+
 
 # Some amazing code I stole from stackoverflow
 # Minor edit, added to allow float
