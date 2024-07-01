@@ -105,6 +105,9 @@ def handleBotChange(list: ttk.Combobox, main, gui):
     # Calls bot update in main for sim
     # main.bot update something()
 
+    # Calls bot update in main for sim
+    main.updateToRobot()
+
     # Update tabs
     gui.reloadTabs()
 

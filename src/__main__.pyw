@@ -27,6 +27,14 @@ class OpenAiganEngine:
         # Make sure all user dir and files exist
         self.preCheckAllUserFiles()
 
+        # Pull all current engine-level data
+        self.theme = json.load(open(self.userPath + "/SETTINGS.json"))[
+            "devmode_settings"
+        ]["theme"]
+        self.bot = json.load(open(self.userPath + "/SETTINGS.json"))["root_settings"][
+            "selected_robot"
+        ]
+
         #
         #
         # start threads here
@@ -40,15 +48,21 @@ class OpenAiganEngine:
 
     # Comment <<<<<<<<<<<<<<<<<<<<<<<<
     def updateToTheme(self):
-        print(
-            "Updated theme on sim to "
-            + str(
-                json.load(open(self.userPath + "/SETTINGS.json"))["devmode_settings"][
-                    "theme"
-                ]
-            )
-        )
-        pass
+        self.theme = json.load(open(self.userPath + "/SETTINGS.json"))[
+            "devmode_settings"
+        ]["theme"]
+        print("Updated theme on sim to " + self.theme)
+
+        # updateSim()
+
+    # Comment <<<<<<<<<
+    def updateToRobot(self):
+        self.bot = json.load(open(self.userPath + "/SETTINGS.json"))["root_settings"][
+            "selected_robot"
+        ]
+        print("Updated to: " + self.bot)
+
+        # updateSim()
 
     # Checks to make sure all user/setting files and dirs exist
     # First check user and /build and /controls dirs exist

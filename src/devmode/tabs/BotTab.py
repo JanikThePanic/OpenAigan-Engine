@@ -35,7 +35,9 @@ def load(devGUI, engine):
     saveButton = ttk.Button(
         metaFrame,
         text="Save",
-        command=lambda: saveBuild(buildPath=buildPath, botParams=botParams),
+        command=lambda: saveBuild(
+            buildPath=buildPath, botParams=botParams, main=engine
+        ),
     )
     saveButton.pack(side="right", anchor="e")
 
@@ -62,7 +64,7 @@ def load(devGUI, engine):
 
 
 # Save all parameters to the json
-def saveBuild(buildPath, botParams: ttk.LabelFrame):
+def saveBuild(buildPath, botParams: ttk.LabelFrame, main):
     # buildJson is a path to the build JSON
     # botParams refers to the build_parameters displayed in the labelFrame in the JSON
     # When I get my act tgt, this tab will be a class extenting a tab calss
@@ -89,6 +91,9 @@ def saveBuild(buildPath, botParams: ttk.LabelFrame):
         json.dump(buildJson, f, indent=4)
 
     # Not my proudest code here...
+
+    # Call to main to update sim
+    main.updateToRobot()
 
 
 if __name__ == "__main__":
