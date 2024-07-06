@@ -5,6 +5,8 @@ import sv_ttk
 
 # Misc dependencies
 import json
+import platform
+import ctypes
 
 # Tab-specfic imports
 import devmode.tabs.BotTab
@@ -33,11 +35,19 @@ class DevmodeGUI:
         # Set window title
         self.root.title(self.engine.metadata["project-name"])
 
-        # Fill left half the screen
+        # Fill left 1/3 of the screen
+        scaleFactor = 1
+        if int(platform.release()) >= 8:
+            ctypes.windll.shcore.SetProcessDpiAwareness(True)
+            scaleFactor = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
+
         screenWidth = self.root.winfo_screenwidth()
         screenHeight = self.root.winfo_screenheight()
         self.root.geometry(
-            str(int(screenWidth / 3)) + "x" + str(screenHeight - 75) + "+0+0"
+            str(int(screenWidth / 3 * scaleFactor))
+            + "x"
+            + str(int((screenHeight - 75) * scaleFactor))
+            + "+0+0"
         )
 
         # Set theme
