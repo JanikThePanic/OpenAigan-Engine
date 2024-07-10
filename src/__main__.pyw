@@ -47,7 +47,11 @@ class OpenAiganEngine:
         # temp: just load gui no questions
         # working on gui first
         # fun fact: tkinter cant run in thread, so everything else has to be in thread instead
+        # FUN FACT II: neither is pygame thread safe
         self.devGUI = devmode.DevmodeGUI.DevmodeGUI(self)
+
+        while True:
+            self.devGUI.update()
 
     # Comment <<<<<<<<<<<<<<<<<<<<<<<<
     def updateToTheme(self):

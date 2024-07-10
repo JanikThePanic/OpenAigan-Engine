@@ -74,8 +74,9 @@ class DevmodeGUI:
         # (re)Load all tabs into notebook
         self.reloadTabs()
 
-        # Run window
-        self.root.mainloop()
+    # Function to update GUI
+    def update(self):
+        self.root.update()
 
     # Function to clear notebook of all tabs and reload new tabs
     def reloadTabs(self):
