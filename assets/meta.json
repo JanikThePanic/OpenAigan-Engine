@@ -2,5 +2,6 @@
 	"project-name": "OpenAigan Engine",
 	"icon": "icon.ico",
 	"author": "Jahangir (Janik) Abdullayev",
-	"version": "beta 0.0.1"
+	"version": "beta 0.0.1",
+	"supported": ["Hexapod", "gabeNewell"]
 }

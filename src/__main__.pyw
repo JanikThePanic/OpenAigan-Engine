@@ -7,8 +7,7 @@ import devmode.DevmodeGUI
 # Project requires the folders assets, src, and user to be in the same dirctory
 class OpenAiganEngine:
     # List of all supported bot types to be referenced
-    # Should prob be moved to meta.json
-    supportedBotTypes = ["Hexapod", "gabeNewell"]
+    supportedBotTypes = []
 
     def __init__(self):
         # Save the programs's src directory path
@@ -24,6 +23,9 @@ class OpenAiganEngine:
         # Meta data about the program shouldn't be changing during runtime
         # Hence can load now
         self.metadata = json.load(open(self.assetsPath + "/meta.json"))
+
+        # Load which bots are supported
+        OpenAiganEngine.supportedBotTypes = self.metadata["supported"]
 
         # Make sure all user dir and files exist
         self.preCheckAllUserFiles()
